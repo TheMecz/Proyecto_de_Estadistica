@@ -1,0 +1,72 @@
+# **Informe**
+
+```{r}
+install.packages("haven")
+install.packages("readr")
+```
+
+
+### **Medición de desempleados en Lima-Metropolitana y Callao debido al covid 19**
+
+Este estudio permite entender los efectos que tuvieron las primeras medidas que se tuvieron al insertar la cuarentena obligatoria. Además, trata de ver la empleabilidad en Lima Metropolitana y del Callao viendo cómo ha ido disminuyendo o incrementando en los últimos años. Se desea medir la cantidad de personas desempleadas en Lima Metropolitana y el Callao debido al covid-19. Por último, es posible llegar a la idea que se propone viendo como las gráficas de personas empleadas activa ha ido  disminuyendo durante la llegada del covid-19 a Lima Metropolitana y el Callao.
+
+
+
+```{r}
+# Se muestra la base de datos sacados del INEI de Dic-Ene-Feb del 2019 sobre la encuesta de permanecia de empleo
+library(haven)
+Trim_Dic_Ene_Feb19 <- read_sav("Base_de_datos/Trim Dic-Ene-Feb19.sav")
+View(Trim_Dic_Ene_Feb19)
+```
+
+### **La correlación entre las inmigraciones y los índices de violencia en México**
+
+Si, pues este estudio trata un tema sensible el cual es sobre la inmigración y la violencia. En este caso, se esta dando el enfoque en México donde se conoce que tiene una alta taza de violencia, sexismo y discriminación. Por lo que sería de interés saber si hay alguna relación entre estas variables para saber cómo disminuir esta problemática de violencia.
+Se desea llegar a la conclusión de que existe una relación entre estas dos variables. Como apoyo a la investigación se  explicaran las razones del porqué se produce ese incremento en la violencia. Viendo los antecedentes de los inmigrantes, de donde emigran y el porqué emigran nos darían respuestas a esto. 
+Por último si sería posible llegar a la información de manera específica ya que existen fuentes donde se detallan acerca del incremento de violencia. Por ejemplo menciona que “el desplazamiento forzado se relaciona con la violencia y la inseguridad...” (Masferrer, 2019) Esta cita nos da a conocer la situación de desagrado de las personas que emigran mostrando una alza en los índices de violencia.
+
+```{r}
+#Se muestra las tablas de los reportes de violencia, migración en México y la población mundial y migrantes.
+library(readr)
+reporte_de_violencia <- read_csv("Base_de_datos/reporte_vilencia.csv")
+migracion_de_mexico <- read_csv("Base_de_datos/Encuesta_Nacional_de_Migracion.csv")
+poblacion_mundial_y_migrantes <- read_csv("Base_de_datos/Total_de_la_poblacion_mundial_y_migrante_segun_sexo_y_nivel_de_desarrollo_regional_1960_2015_Base.csv")
+
+View(reporte_de_violencia)
+View(migracion_de_mexico)
+View(poblacion_mundial_y_migrantes)
+```
+
+
+### **El impacto del ciberbullying en el incremento de suicidios**
+
+El cyberbullying a diferencia del bullying, viene creciendo sostenidamente a lo largo de la última década. Este se diferencia del bullying tradicional, por el uso de diferentes dispositivos electrónicos que incluyan alguna forma de comunicación a través del internet (Hinduja & Patchin, 2009). Sumado a esto, a causa de la pandemia muchas actividades, incluidas las relacionadas con el sector educativo, se realizan de manera remota. Por ello, el tiempo que las personas pasan conectadas a Internet es mayor y por ende, la exposición al cyberbullying también. Teniendo en cuenta que el suicido suele ser en última instancia unos de los efectos de estos ataques. También teniendo en cuenta que el confinamiento en estos últimos años ha aumentado estos comportamientos agresivos por las redes, consideramos que es de suma importancia. Por lo que se podría llegar a establecer una relación entre el cyberbullying y el incremento de la tasa de suicidios. Asimismo, la salud mental es un área del que muchas personas no son conscientes aún de su importancia, existen estudios que demuestran como agresiones, sobretodo virtuales generan un impacto negativo en la salud mental de las personas.
+
+
+```{r}
+library(readr)
+agresion_dataset <- read_csv("Base_de_datos/aggression_parsed_dataset.csv")
+ataque_dataset <- read_csv("Base_de_datos/attack_parsed_dataset.csv")
+kaggle_dataset <- read_csv("Base_de_datos/kaggle_parsed_dataset.csv")
+toxicidad_dataset <- read_csv("Base_de_datos/toxicity_parsed_dataset.csv")
+twitter_dataset <- read_csv("Base_de_datos/twitter_parsed_dataset.csv")
+racismo_twitter_dataset <- read_csv("Base_de_datos/twitter_racism_parsed_dataset.csv")
+sexismo_twitter_dataset <- read_csv("Base_de_datos/twitter_sexism_parsed_dataset.csv")
+youtube_dataset <- read_csv("Base_de_datos/youtube_parsed_dataset.csv")
+
+View(agresion_dataset)
+View(ataque_dataset)
+View(kaggle_dataset)
+View(toxicidad_dataset)
+View(twitter_dataset)
+View(racismo_twitter_dataset)
+View(sexismo_twitter_dataset)
+View(youtube_dataset)
+```
+
+
+#### **Bibliografías**
+
+*Hinduja, S. & Patchin, J. W. (2009) Bullying Beyond the Schoolyard : Preventing and Responding to Cyberbullying. Corwin Press, 2009*
+
+
