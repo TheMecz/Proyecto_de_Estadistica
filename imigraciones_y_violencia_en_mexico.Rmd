@@ -1,0 +1,71 @@
+---
+title: "La correlación entre las inmigraciones y los índices de violencia en México"
+output: html_notebook
+---
+
+
+```{r}
+library(readr)
+migracion_de_mexico <- read_csv("Base_de_datos/Encuesta_Nacional_de_Migracion.csv")
+poblacion_mundial_y_migrantes <- read_csv("Base_de_datos/Total_de_la_poblacion_mundial_y_migrante_segun_sexo_y_nivel_de_desarrollo_regional_1960_2015_Base.csv")
+revisiones_migratorias <-read_csv("Base_de_datos/revisiones-migratorias.csv")
+Percepcion_Seguridad_Publica_Datos <- read_delim("Base_de_datos/Percepcion Seguridad Publica - Datos.csv", 
+    ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+
+## Tabla de inmigración en México
+
+```{r}
+migracion_de_mexico_clean = migracion_de_mexico[,c(54:57,87:90,142,149:150,152:171,179:180,182:183,194:195,210:211,213:215,219:220,222:233,235,250,253:260)]
+migracion_de_mexico_clean <- na.omit(migracion_de_mexico_clean)
+migracion_de_mexico_clean
+migracion_de_mexico
+y = table(migracion_de_mexico_clean$total2)
+y
+max(y)
+```
+
+```{r}
+factor.ageb <- factor(migracion_de_mexico$ageb)
+factor.p4_1 <- factor(migracion_de_mexico$p4_1)
+levels(factor.p4_1) 
+levels(factor.migracion_de_mexico)
+table(migracion_de_mexico$hr_ini1)
+table(migracion_de_mexico$loca)
+```
+
+
+```{r}
+revisiones_migratorias_clean <- na.omit(revisiones_migratorias)
+I_2015 <- data.frame(I_2015 = revisiones_migratorias_clean$`2015-01` + revisiones_migratorias_clean$`2015-02` + revisiones_migratorias_clean$`2015-03`)
+II_2015 <- data.frame(II_2015 = revisiones_migratorias_clean$`2015-04` + revisiones_migratorias_clean$`2015-05` + revisiones_migratorias_clean$`2015-06`)
+III_2015 <- data.frame(III_2015 = revisiones_migratorias_clean$`2015-07` + revisiones_migratorias_clean$`2015-08` + revisiones_migratorias_clean$`2015-09`)
+IV_2015 <- data.frame(IV_2015 = revisiones_migratorias_clean$`2015-10` + revisiones_migratorias_clean$`2015-11` + revisiones_migratorias_clean$`2015-12`)
+
+I_2016 <- data.frame(I_2016 = revisiones_migratorias_clean$`2016-01` + revisiones_migratorias_clean$`2016-02` + revisiones_migratorias_clean$`2016-03`)
+II_2016 <- data.frame(II_2016 = revisiones_migratorias_clean$`2016-04` + revisiones_migratorias_clean$`2016-05` + revisiones_migratorias_clean$`2016-06`)
+III_2016 <- data.frame(III_2016 = revisiones_migratorias_clean$`2016-07` + revisiones_migratorias_clean$`2016-8` + revisiones_migratorias_clean$`2016-09`)
+IV_2016 <- data.frame(IV_2016 = revisiones_migratorias_clean$`2016-10` + revisiones_migratorias_clean$`2016-11` + revisiones_migratorias_clean$`2016-12`)
+
+I_2017 <- data.frame(I_2017 = revisiones_migratorias_clean$`2017-01` + revisiones_migratorias_clean$`2017-02` + revisiones_migratorias_clean$`2017-03`)
+II_2017 <- data.frame(II_2017 = revisiones_migratorias_clean$`2017-04` + revisiones_migratorias_clean$`2017-05` + revisiones_migratorias_clean$`2017-06`)
+III_2017 <- data.frame(III_2017 = revisiones_migratorias_clean$`2017-07` + revisiones_migratorias_clean$`2017-08` + revisiones_migratorias_clean$`2017-9`)
+IV_2017 <- data.frame(IV_2017 = revisiones_migratorias_clean$`2017-10` + revisiones_migratorias_clean$`2017-11` + revisiones_migratorias_clean$`2017-12`)
+
+I_2018 <- data.frame(I_2018 = revisiones_migratorias_clean$`2018-01` + revisiones_migratorias_clean$`2018-02` + revisiones_migratorias_clean$`2018-03`)
+II_2018 <- data.frame(II_2018 = revisiones_migratorias_clean$`2018-04` + revisiones_migratorias_clean$`2018-05` + revisiones_migratorias_clean$`2018-06`)
+III_2018 <- data.frame(III_2018 = revisiones_migratorias_clean$`2018-07` + revisiones_migratorias_clean$`2018-08` + revisiones_migratorias_clean$`2018-09`)
+IV_2018 <- data.frame(IV_2018 = revisiones_migratorias_clean$`2018-10` + revisiones_migratorias_clean$`2018-11` + revisiones_migratorias_clean$`2018-12`)
+
+Nueva_tabla <- data.frame(c(revisiones_migratorias[,2], I_2015, II_2015, III_2015, IV_2015,  I_2016, II_2016, III_2016, IV_2016, I_2017, II_2017, III_2017, IV_2017, I_2018, II_2018, III_2018, IV_2018))
+#revisiones_migratorias_clean
+Nueva_tabla
+```
+
+
+
+```{r}
+na.omit(Percepcion_Seguridad_Publica_Datos)
+```
+

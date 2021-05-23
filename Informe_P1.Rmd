@@ -1,0 +1,315 @@
+---
+title: "La correlación entre las inmigraciones y los índices de violencia en México"
+author:
+- "Ponce Sanchez, Max Albert (Líder de grupo)"
+- "Strater Mc Lellan, Luis Eduardo"
+- "Puchuri Orellano, Piero Marcelo"
+- "Cárdenas Aguirre, Sebastian Edgard"
+- "Anticona Puza, Francescolli Gustavo"
+- "Profesor: Rojas Melasquez, Royer Edelwer"
+date: "20/5/2021"
+output:
+  html_notebook: default
+  pdf_document: default
+  html_document: default
+  beamer_presentation: default
+subtitle: Inmigraciones vs Violencia
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+migracion_de_mexico <- read_csv("Base_de_datos/Encuesta_Nacional_de_Migracion.csv")
+revisiones_migratorias <-read_csv("Base_de_datos/revisiones-migratorias.csv")
+Percepcion_Seguridad_Publica_Datos <- read_delim("Base_de_datos/Percepcion Seguridad Publica - Datos.csv", 
+    ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+## **Introducción**
+
+Este estudio trata un tema sensible el cual es sobre la inmigración y la violencia. En este caso, se esta dando el enfoque en México donde se conoce que tiene una alta taza de violencia, sexismo y discriminación. Por lo que sería de interés saber si hay alguna relación entre estas dos variables.      
+Con el paso de los años los países, en su mayoría países latinos, se han visto afectados por una gran cantidad de inmigrantes de diferentes partes del mundo por diversas razones. Este aumento progresivo de inmigraciones ha traído consigo beneficios y daños a la población donde se inmigra. Una de estos posibles daños es el aumento de crímenes/violencia tras la llegada de inmigrantes, sea por la misma población hacia los inmigrantes como los inmigrantes en si. Por ello, es que nos enfocamos en México pues, tienen una cultura muy diversa y un alto flujo de inmigrantes. Por lo que se busca ver una relación entre estos dos factores, el incremento violencia y las inmigraciones.
+
+## **Objetivo**
+
+Evaluar el crecimiento de violencia según las inmigraciones realizadas en México por medio de datos extraídos del Instituto Nacional de Estadística y Geografía(INEGI).
+
+* **Objetivos Específicos**
+
+  + Determinar cómo las inmigraciones en México pueden alterar el orden público.
+  + Determinar que indicadores muestran una mayor relevancia para la investigación.
+  + Hallar una correlación entre el aumento de violencia y las inmigraciones.      
+
+* **Preguntas Plateadas**
+
+  
+Preguntas|Tipo de pregunta
+-------------------------------------------------------|------------
+*¿Qué relación existe entre el índice de violencia y el de inmigraciones?*| **Plausible**
+*¿En qué región se presenta mayor índice de violencia en el caso de inmigración?*| **Específica**
+*¿Se percibe inseguridad/incomodidad en presencia de un inmigrante?*| **Factible**
+*¿Cuales son los motivos más frecuentes por los que se presenta discriminación?*| **Plausible**
+*¿Qué tan visibles se presentan las oportunidades a personas inmigrantes al país?*|**Interesante**
+*¿Cómo se percibe la presencia de un inmigrante?*|**Interesante**
+
+## **Marco Teórico**
+
+* **Población Objetivo**: Es el conjunto de individuos que conforman dos grupos, los inmigrantes y los ciudadanos mexicanos.
+* **Unidades Muestrales**: Inmigrantes y los ciudadanos mexicanos.
+* **Variables**:
+
+Variables | Tipos de variables
+-------------------------------------------------------|-----------
+Para usted, ¿Se justifica o no se justifica expulsar de una comunidad a alguien que no es de la religión que tiene la mayoría? | **Categórica**
+Para usted, ¿Se justifica o no se justifica devolver a un extranjero a su país por no tener papeles? | **Categórica**
+Para usted, ¿Se justifica o no se justifica discriminar a inmigrantes por practicar costumbres diferentes? | **Categórica**
+¿Estaría dispuesto o no estaría dispuesto a permitir que en su casa vivieran personas de otra religión? | **Categórica**
+¿Podría decirme, por favor, una palabra que asocie con la expresión 'frontera norte de México'?|**Categórica**
+ ¿Podría decirme, por favor, una palabra que asocie con la expresión 'frontera sur de México'?|**Categórica**
+Usted cree que los mexicanos que viven en el extranjero deben tener…| **Categórica**
+Usted considera que desde la crisis económica de 2008 han regresado...| **Categórica**
+¿Cuál cree usted que es el principal problema de los mexicanos que regresan al país después de vivir en el extranjero?| **Categórica**
+Actualmente, ¿cuál considera que es el principal problema para los extranjeros que viven en México?| **Categórica**
+En general, ¿su opinión sobre los extranjeros que viven en México es muy buena, buena, mala o muy mala?| **Categórica**
+Dígame por favor ¿Qué tan de acuerdo o en desacuerdo está con las siguientes afirmaciones sobre los extranjeros que viven en México? Contribuyen a la economía de México| **Categórica**
+Dígame por favor ¿Qué tan de acuerdo o en desacuerdo está con las siguientes afirmaciones sobre los extranjeros que viven en México? Quitan empleos a los Mexicanos| **Categórica**
+Dígame por favor ¿Qué tan de acuerdo o en desacuerdo está con las siguientes afirmaciones sobre los extranjeros que viven en México? Generan inseguridad| **Categórica**
+Dígame por favor ¿Qué tan de acuerdo o en desacuerdo está con las siguientes afirmaciones sobre los extranjeros que viven en México? Traen ideas innovadoras| **Categórica**
+Dígame por favor ¿Qué tan de acuerdo o en desacuerdo está con las siguientes afirmaciones sobre los extranjeros que viven en México? Debilitan nuestras costumbres y tradiciones| **Categórica**
+Dígame por favor ¿Qué tan de acuerdo o en desacuerdo está con las siguientes afirmaciones sobre los extranjeros que viven en México? Deberían pagar más impuestos que los mexicanos| **Categórica**
+¿En su día a día convive con extranjeros que viven México?| **Categórica**
+Con respecto a la cantidad de extranjeros que viven en México, usted piensa que…| **Categórica**
+¿Qué debería hacer el gobierno con los extranjeros que vienen a trabajar a México?| **Categórica**
+¿Qué tanto se respetan los derechos de los extranjeros que viven en México?| **Categórica**
+Usted cree que los extranjeros que viven en México deben tener…| **Categórica**
+¿Qué tanto cree usted que se respetan en México los derechos de los extranjeros de Estados Unidos?| **Categórica**
+¿Qué tanto cree usted que se respetan en México los derechos de los extranjeros de Centroamérica?| **Categórica**
+¿Qué tanto cree usted que se respetan en México los derechos de los extranjeros de Europa?| **Categórica**
+¿Qué tanto cree usted que se respetan en México los derechos de los extranjeros de Asia?| **Categórica**
+¿Qué tanto cree usted que se respetan en México los derechos de los extranjeros de África?| **Categórica**
+En comparación con los mexicanos, en general, para un extranjero que vive en México ¿es más fácil, igual o más difícil encontrar trabajo?| **Categórica**
+ En general, ¿qué tanto considera que los mexicanos discriminan a los extranjeros que viven en el país?| **Categórica**
+¿Usted cree que en México a los extranjeros se les trata igual a todos o depende del país donde provienen?| **Categórica**
+¿Y a qué extranjeros vemos con buenos ojos?| **Categórica**
+¿Con cuál de las siguientes frases está usted más de acuerdo?| **Categórica**
+Dígame, ¿qué tan satisfecho o insatisfecho está con el desempeño del gobierno mexicano en materia de Política Exterior?| **Categórica**
+Dígame, ¿qué tan satisfecho o insatisfecho está con el desempeño del gobierno mexicano en materia de Política Migratoria?| **Categórica**
+Ante el clima de inseguridad y de violencia, usted considera que el gobierno federal tiene control sobre….| **Categórica**
+Y con respecto a los inmigrantes indocumentados que vienen a México ¿Usted considera que el gobierno mexicano debería o no debería permitir su entrada sin obstáculos?| **Categórica**
+Y con respecto a los inmigrantes indocumentados que vienen a México ¿Usted considera que el gobierno mexicano debería o no debería aumentar los controles fronterizos?| **Categórica**
+Y con respecto a los inmigrantes indocumentados que vienen a México ¿Usted considera que el gobierno mexicano debería o no debería deportarlos a su país de origen?| **Categórica**
+Y con respecto a los inmigrantes indocumentados que vienen a México ¿Usted considera que el gobierno mexicano debería o no debería construir un muro en la frontera sur?| **Categórica**
+¿Me podría decir en qué ESTADO y MUNICIPIO nació usted?   ESTADO | **Categórica**
+¿Me podría decir en qué ESTADO y MUNICIPIO nació usted?   MUNICIPIO | **Categórica**
+¿Tiene usted hijos? ¿Cuántos? | **Numérica**
+¿Habla usted algún otro idioma que no sea español? | **Categórica**
+Sexo | **Categórica**
+¿Cuántos años cumplidos tiene usted? | **Numérica**
+¿Cuál es el último nivel que estudió o cursó en la escuela? | **Categórica**
+Edad | **Numérica**
+Condición de Actividad | **Categórica**
+Estado Civil | **Categórica**
+Ingreso Individual | **Categórico**
+Ingreso Familiar | **Categórico**
+Región | **Categórica**
+Estrato | **Categórica**
+Tamaño de localidad | **Categórica**
+revisión de migraciones| **Numérica**
+percepción de seguridad pública| **Numérica**
+
+**Tabla de la encuesta nacional de migraciones en México**
+
+```{r, echo=FALSE}
+migracion_de_mexico_clean = migracion_de_mexico[,c(54:57,87:90,142,149:150,152:171,179:180,182:183,194:195,210:211,213:215,219:220,222:233,235,250,253:256,258:260)]
+migracion_de_mexico_clean <- na.omit(migracion_de_mexico_clean)
+migracion_de_mexico_clean
+```
+
+
+**Tabla de revisiones de migraciones**
+
+```{r, echo=FALSE}
+revisiones_migratorias_clean <- na.omit(revisiones_migratorias)
+I_2015 <- data.frame(I_2015 = revisiones_migratorias_clean$`2015-01` + revisiones_migratorias_clean$`2015-02` + revisiones_migratorias_clean$`2015-03`)
+II_2015 <- data.frame(II_2015 = revisiones_migratorias_clean$`2015-04` + revisiones_migratorias_clean$`2015-05` + revisiones_migratorias_clean$`2015-06`)
+III_2015 <- data.frame(III_2015 = revisiones_migratorias_clean$`2015-07` + revisiones_migratorias_clean$`2015-08` + revisiones_migratorias_clean$`2015-09`)
+IV_2015 <- data.frame(IV_2015 = revisiones_migratorias_clean$`2015-10` + revisiones_migratorias_clean$`2015-11` + revisiones_migratorias_clean$`2015-12`)
+
+I_2016 <- data.frame(I_2016 = revisiones_migratorias_clean$`2016-01` + revisiones_migratorias_clean$`2016-02` + revisiones_migratorias_clean$`2016-03`)
+II_2016 <- data.frame(II_2016 = revisiones_migratorias_clean$`2016-04` + revisiones_migratorias_clean$`2016-05` + revisiones_migratorias_clean$`2016-06`)
+III_2016 <- data.frame(III_2016 = revisiones_migratorias_clean$`2016-07` + revisiones_migratorias_clean$`2016-8` + revisiones_migratorias_clean$`2016-09`)
+IV_2016 <- data.frame(IV_2016 = revisiones_migratorias_clean$`2016-10` + revisiones_migratorias_clean$`2016-11` + revisiones_migratorias_clean$`2016-12`)
+
+I_2017 <- data.frame(I_2017 = revisiones_migratorias_clean$`2017-01` + revisiones_migratorias_clean$`2017-02` + revisiones_migratorias_clean$`2017-03`)
+II_2017 <- data.frame(II_2017 = revisiones_migratorias_clean$`2017-04` + revisiones_migratorias_clean$`2017-05` + revisiones_migratorias_clean$`2017-06`)
+III_2017 <- data.frame(III_2017 = revisiones_migratorias_clean$`2017-07` + revisiones_migratorias_clean$`2017-08` + revisiones_migratorias_clean$`2017-9`)
+IV_2017 <- data.frame(IV_2017 = revisiones_migratorias_clean$`2017-10` + revisiones_migratorias_clean$`2017-11` + revisiones_migratorias_clean$`2017-12`)
+
+I_2018 <- data.frame(I_2018 = revisiones_migratorias_clean$`2018-01` + revisiones_migratorias_clean$`2018-02` + revisiones_migratorias_clean$`2018-03`)
+II_2018 <- data.frame(II_2018 = revisiones_migratorias_clean$`2018-04` + revisiones_migratorias_clean$`2018-05` + revisiones_migratorias_clean$`2018-06`)
+III_2018 <- data.frame(III_2018 = revisiones_migratorias_clean$`2018-07` + revisiones_migratorias_clean$`2018-08` + revisiones_migratorias_clean$`2018-09`)
+IV_2018 <- data.frame(IV_2018 = revisiones_migratorias_clean$`2018-10` + revisiones_migratorias_clean$`2018-11` + revisiones_migratorias_clean$`2018-12`)
+
+Nueva_tabla <- data.frame(c(revisiones_migratorias[,2], I_2015, II_2015, III_2015, IV_2015,  I_2016, II_2016, III_2016, IV_2016, I_2017, II_2017, III_2017, IV_2017, I_2018, II_2018, III_2018, IV_2018))
+#revisiones_migratorias_clean
+Nueva_tabla
+```
+
+**Tabla de percepsión de seguridad pública**
+
+```{r, echo=FALSE}
+Percepcion_Seguridad_publica_clean <- na.omit(Percepcion_Seguridad_Publica_Datos)
+Percepcion_Seguridad_publica_clean
+```
+
+* **Obtención de Muestra**
+
+  + [La inseguridad pública: causas y consecuencias.][id]
+
+  [id]: https://www.redalyc.org/articulo.oa?id=32528338007 "Title"
+  + [Víctimas, inculpados y sentenciados registrados.][id]
+
+  [id]: https://www.inegi.org.mx/temas/victimas/ "Title"
+
+  + [Encuesta Nacional de Migración.][id]
+
+  [id]: https://datos.gob.mx/busca/dataset/migracion-mundial "Title"
+
+## **Descriptores Numéricas**
+
+* Percepción de seguridad publica en 2010
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2010`)
+```
+
+* Percepción de seguridad publica en 2011
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2011`)
+```
+
+* Percepción de seguridad publica en 2012
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2012`)
+```
+
+* Percepción de seguridad publica en 2013
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2013`)
+```
+
+* Percepción de seguridad publica en 2014
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2014`)
+```
+
+* Percepción de seguridad publica en 2015
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2015`)
+```
+
+* Percepción de seguridad publica en 2016
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2016`)
+```
+
+* Percepción de seguridad publica en 2017
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2017`)
+```
+
+* Percepción de seguridad publica en 2018
+
+```{r, echo=FALSE}
+summary(Percepcion_Seguridad_publica_clean$`2018`)
+```
+
+## **Descriptores Gráficos**
+
+```{r, echo=FALSE, fig.align='center', out.width="150%"}
+plot(Percepcion_Seguridad_publica_clean$`2011`,main="Año de la Menor Percepción de Seguridad Pública", col="deepskyblue4",type="h", xlab = "Estados", ylab = "Porcentaje(%)", ylim = c(0,100), xlim = c(0,33), lwd = 4)
+text(Percepcion_Seguridad_publica_clean$`2011`, labels = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"),pos = 3)
+```
+```{r, echo=FALSE, fig.align='center', out.width="150%"}
+plot(Percepcion_Seguridad_publica_clean$`2013`,main="Año de la Mayor Percepción de Seguridad Pública", col="navy",lwd = 4,type="h", xlab = "Estados", ylab = "Porcentaje(%)", ylim = c(0,100), xlim = c(0,33))
+text(Percepcion_Seguridad_publica_clean$`2013`, labels = c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"),pos = 3)
+```
+
+## **Descriptores Gráficos**
+
+Número | Estado
+----------|------------
+1|Estados Unidos Mexicanos
+2|Agascalientes
+3|Baja California
+4|Baja California Sur
+5|Campeche
+6|Coahuila de Zaragoza
+7|Colima
+8|Chiapas
+9|Chihuahua
+10|Ciudad de México
+11|Durango
+12|Guanajuato
+13|Guerrero
+14|Hidalgo
+15|Jalisco
+16|México
+17|Michoacán de Ocampo
+18|Morelos
+19|Nayarit
+20|Nuevo León
+21|Oaxaca
+22|Puebla
+23|Querétaro
+24|Quintana Roo
+25|San Luis Potosí
+26|Sinaloa
+27|Sonora
+28|Tabasco
+29|Tamaulipas
+30|Tlaxcala
+31|Veracruz de Ignacio de la LLave
+32|Yucatán
+33|Zacatecas
+
+
+```{r, echo=FALSE, fig.align='center', out.width="150%"}
+x_1 = migracion_de_mexico_clean$p6_5[which(migracion_de_mexico_clean$p6_5 == "1")]
+x_2 = migracion_de_mexico_clean$p6_5[which(migracion_de_mexico_clean$p6_5 == "2")]
+x_3 = migracion_de_mexico_clean$p6_5[which(migracion_de_mexico_clean$p6_5 == "3")]
+
+hist(c(x_1,x_2,x_3), main="Pregunta P6_5", xlab = "Valores Etiquetdos", ylab = "Frecuencia", xaxp = c(1,3,2),xlim = c(0.8,3) ,ylim = c(0,1000), col = "lightblue3")
+text(1.1,100, label = "Sí se Justifica", pos = 3, col="navy")
+text(1.9,220, label = "Depende", pos = 3, col="navy")
+text(2.9,900, label = "No se justifica", pos = 3, col = "navy")
+```
+
+
+## **Metodología**
+
+Recopilar las bases de datos(formato .csv) de la página del Instituto Nacional de Estadística y Geografía(INEGI), Universidad Nacional Autónoma de México(UNAM) , para obtener indicadores de aumento de violencia en México.
+
+## **Diagrama de Gantt**
+
+![][id]
+
+[id]: diagrama_de_gant.png "Title"
+
+## **Referencias**
+
+* Tapia Pérez, José (2013). La inseguridad pública: causas y consecuencias. El Cotidiano,  (180),103-112.[fecha de Consulta 20 de Mayo de 2021]. ISSN: 0186-1840. Disponible en:   https://www.redalyc.org/articulo.oa?id=32528338007
+* Datos Abiertos de México - datos.gob.mx. (2021). Retrieved 10 May 2021, from https://datos.gob.mx/busca/dataset?tags=víctimas
+* Biblioteca Los mexicanos vistos por sí mismos. Los grandes temas nacionales / Encuesta Nacional de Migración. (2021). Retrieved 10 May 2021, from http://www.losmexicanos.unam.mx/migracion/encuesta_nacional.html
+* Morales Mena, A., & Caicedo, M. (2015, 25 agosto). Encuesta Nacional de Migración. Biblioteca Los Mexicanos vistos por sí mismos Los grandes temas nacionales. http://www.losmexicanos.unam.mx/migracion/encuesta_nacional.html
+https://datos.gob.mx/busca/dataset/migracion-mundial
+https://www.kaggle.com/zikazika/analysis-of-world-crime?select=Enrolment_in_Grade_1_of_primary_education1.csv
+* Muñoz Rincón, D. (2021). ¿Cómo se dice:. Retrieved 17 May 2021, from https://www.upb.edu.co/es/central-blogs/ortografia/como-se-dice-migrante-emigrante-inmigrante
+* Violencia. (2021). Retrieved 17 May 2021, from https://www.who.int/topics/violence/es/
