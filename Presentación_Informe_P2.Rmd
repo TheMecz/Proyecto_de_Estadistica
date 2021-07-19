@@ -1,0 +1,251 @@
+---
+title: "La correlación entre las inmigraciones y los índices de violencia en México"
+author:
+- Ponce Sanchez, Max Albert (Líder de grupo)
+- Strater Mc Lellan, Luis Eduardo
+- Puchuri Orellano, Piero Marcelo
+- Cárdenas Aguirre, Sebastian Edgard
+- Anticona Puza, Francescolli Gustavo
+- 'Profesor: Rojas Melasquez, Royer Edelwer'
+date: "20/05/2020"
+output:
+  slidy_presentation: default
+  beamer_presentation: default
+  ioslides_presentation: default
+subtitle: Inmigraciones vs Violencia
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(modeest)
+migracion_de_mexico <- read_csv("Base_de_datos/Encuesta_Nacional_de_Migracion.csv")
+revisiones_migratorias <-read_csv("Base_de_datos/revisiones-migratorias.csv")
+Percepcion_Seguridad_Publica_Datos <- read_delim("Base_de_datos/Percepcion Seguridad Publica - Datos.csv",
+    ";", escape_double = FALSE, trim_ws = TRUE)
+
+migracion_de_mexico
+migracion_de_mexico_clean = migracion_de_mexico[,c(54:57,87:90,113,142,149:150,152:171,179:180,182:183,194:195,210:211,213:215,219:220,222:233,235,250,253:256,258:260)]
+migracion_de_mexico_clean <- na.omit(migracion_de_mexico_clean)
+migracion_de_mexico_clean
+```
+
+## **Introducción**
+
+Este estudio trata un tema sensible el cual es sobre la inmigración y la violencia. En este caso, se esta dando el enfoque en México donde se conoce que tiene una alta taza de violencia, sexismo y discriminación. Por lo que sería de interés saber si hay alguna relación entre estas dos variables.
+Con el paso de los años los países, en su mayoría países latinos, se han visto afectados por una gran cantidad de inmigrantes de diferentes partes del mundo por diversas razones. Este aumento progresivo de inmigraciones ha traído consigo beneficios y daños a la población donde se inmigra. Una de estos posibles daños es el aumento de crímenes/violencia tras la llegada de inmigrantes, sea por la misma población hacia los inmigrantes como los inmigrantes en si. Por ello, es que nos enfocamos en México pues, tienen una cultura muy diversa y un alto flujo de inmigrantes. Por lo que se busca ver una relación entre estos dos factores, el incremento violencia y las inmigraciones.
+
+
+## **Objetivos**
+
+- Determinar cómo las inmigraciones en México pueden alterar el orden público.
+
+- Determinar qué indicadores muestran una mayor relevancia.
+
+- Hallar una correlación entre el aumento de violencia y las inmigraciones.
+
+- Conocer la percepción de los mexicanos sobre los extranjeros en su país.
+
+- Encontrar posibles relaciones que indiquen patrones de rechazo/intolerancia hacia los extranjeros en México.
+
+## **Preguntas Plateadas**
+
+  
+Preguntas|Tipo de pregunta
+-------------------------------------------------------|------------
+*¿Qué relación existe entre el índice de violencia y el de inmigraciones?*| **Plausible**
+*¿En qué región se presenta mayor índice de violencia en el caso de inmigración?*| **Específica**
+*¿Se percibe inseguridad/incomodidad en presencia de un inmigrante?*| **Factible**
+*¿Cuales son los motivos más frecuentes por los que se presenta discriminación?*| **Plausible**
+*¿Qué tan visibles se presentan las oportunidades a personas inmigrantes al país?*|**Interesante**
+*¿Cómo se percibe la presencia de un inmigrante?*|**Interesante**
+*¿Las personas con menor nivel socioeconómico son las que más rechazan a los inmigrantes?*| **Interesante**
+
+## **Resultados**
+
+* **¿En qué región se cree que se presenta mayor índice de violencia en el caso de inmigación?**
+
+* 1. Pobreza, desigualdad, desempleo
+* 2. Inseguridad, violencia y crimen organizado
+* 3. Mal gobierno, corrupción, impunidad
+* 4. Lugar donde vive, espacio físico
+* 5. Cultura mexicana (música, tradiciones, idioma)
+* 6. Personas cercanas (familia,amigos,etc.)
+* 7. Baja calidad de vida
+
+## **Resultados**
+
+```{r, p20_1a_1,echo=FALSE, fig.align='center',out.width="55%"}
+par(mfrow = c(2,2))
+z_1 <- migracion_de_mexico_clean$p20_1a_1[which(migracion_de_mexico_clean$Region=="1")]
+z_2 <- migracion_de_mexico_clean$p20_1a_1[which(migracion_de_mexico_clean$Region=="2")]
+z_3 <- migracion_de_mexico_clean$p20_1a_1[which(migracion_de_mexico_clean$Region=="3")]
+z_4 <- migracion_de_mexico_clean$p20_1a_1[which(migracion_de_mexico_clean$Region=="4")]
+plot(table(z_1), xlim = c(1,7), ylim=c(0,150), main="Centro", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,150,5), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,30,60,90,120,150), v = 1:7, lty = "dotted", col = "gray53")
+
+plot(table(z_2), xlim = c(1,7), ylim=c(0,100), main="D.F. y Estado de México", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,100,5), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,20,40,60,80,100), v = 1:7, lty = "dotted", col = "gray53")
+
+plot(table(z_3), xlim = c(1,7), ylim=c(0,80), main="Norte", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,80,4), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,20,40,60,80), v = 1:7, lty = "dotted", col = "gray53")
+
+plot(table(z_4), xlim = c(1,7), ylim=c(0,60), main="Sur", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,50,5), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,10,20,30,40,50), v = 1:7, lty = "dotted", col = "gray53")
+```
+
+## **Resultados**
+
+* **¿Se percibe inseguridad/incomodidad en presencia de un inmigrante?**
+
+* 1. Deacuerdo
+* 2. De acuerdo en parte
+* 3. Ni de acuerdo ni en desacuerdo
+* 4. En desacuerdo en parte
+* 5. En desacuerdo
+
+## **Resultados**
+
+```{r, p43_3, echo=FALSE, fig.align='center', out.width="55%"}
+par(mfrow = c(2,2))
+z_1 <- migracion_de_mexico_clean$p43_3[which(migracion_de_mexico_clean$Region=="1")]
+z_2 <- migracion_de_mexico_clean$p43_3[which(migracion_de_mexico_clean$Region=="2")]
+z_3 <- migracion_de_mexico_clean$p43_3[which(migracion_de_mexico_clean$Region=="3")]
+z_4 <- migracion_de_mexico_clean$p43_3[which(migracion_de_mexico_clean$Region=="4")]
+plot(table(z_1), xlim = c(1,5), ylim=c(30,120), main="Centro", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(30,120,3), type="b", lty=3, cex=1, pch=20)
+abline(h=c(30,60,90,120), v = 1:5, lty = "dotted", col = "gray53")
+
+plot(table(z_2), xlim = c(1,5), ylim=c(30,120), main="D.F. y Estado de México", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(30,120,3), type="b", lty=3, cex=1, pch=20)
+abline(h=c(30,60,90,120), v = 1:5, lty = "dotted", col = "gray53")
+
+plot(table(z_3), xlim = c(1,5), ylim=c(30,120), main="Norte", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(30,120,3), type="b", lty=3, cex=1, pch=20)
+abline(h=c(30,60,90,120), v = 1:5, lty = "dotted", col = "gray53")
+
+plot(table(z_4), xlim = c(1,5), ylim=c(20,80), main="Sur", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(20,80,4), type="b", lty=3, cex=1, pch=20)
+abline(h=c(20,35,50,65,80), v = 1:5, lty = "dotted", col = "gray53")
+```
+
+## **Resultados**
+
+* **¿Qué tan visible se presentan las oportunidades a personas inmigrantes al país?**
+
+* 1. Deacuerdo
+* 2. De acuerdo en parte
+* 3. Ni de acuerdo ni en desacuerdo
+* 4. En desacuerdo en parte
+* 5. En desacuerdo
+
+## **Resultados**
+
+```{r, p43_2, echo=FALSE, fig.align='center', out.width="55%"}
+par(mfrow = c(2,2))
+z_1 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$Region=="1")]
+z_2 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$Region=="2")]
+z_3 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$Region=="3")]
+z_4 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$Region=="4")]
+
+plot(table(z_1), xlim = c(1,5), ylim=c(25,100), main="Centro", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "blueviolet",yaxp=c(25,100,3), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(25,50,75,100), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_1)), col="darkblue", lwd = 2)
+
+plot(table(z_2), xlim = c(1,5), ylim=c(25,100), main="D.F. y Estado de México", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "deepskyblue3",yaxp=c(25,100,3), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(25,50,75,100), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_2)), col="darkblue", lwd = 2)
+
+plot(table(z_3), xlim = c(1,5), ylim=c(20,120), main="Norte", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "indianred4",yaxp=c(20,120,4), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(20,45,70,95,120), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_3)), col="darkblue", lwd = 2)
+
+plot(table(z_4), xlim = c(1,5), ylim=c(0,90), main="Sur", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "seagreen4",yaxp=c(0,90,3), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(0,30,60,90), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_4)), col="darkblue", lwd = 2)
+```
+
+## **Resultados**
+
+* **¿Cómo se percibe la presencia de un inmigrante?**
+
+* 1. Muy buena
+* 2. Buena
+* 3. Ni buena ni mala
+* 4. Mala
+* 5. Muy mala
+
+## **Resultados**
+
+```{r, p42, echo=FALSE, fig.align='center', out.width="55%"}
+par(mfrow = c(2,2))
+z_1 <- migracion_de_mexico_clean$p42[which(migracion_de_mexico_clean$ing_ind=="2")]
+z_2 <- migracion_de_mexico_clean$p42[which(migracion_de_mexico_clean$ing_ind=="3")]
+z_3 <- migracion_de_mexico_clean$p42[which(migracion_de_mexico_clean$ing_ind=="4")]
+z_4 <- migracion_de_mexico_clean$p42[which(migracion_de_mexico_clean$ing_ind=="5")]
+plot(table(z_1), xlim = c(1,5), ylim=c(0,120), main="Menos de $2,047.49", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,120,4), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,30,60,90,120), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_1)), col="darkblue", lwd = 2)
+abline(h=(max(table(z_1)-min(table(z_1))))/2, col="gold4", lwd = 2)
+
+
+plot(table(z_2), xlim = c(1,5), ylim=c(0,50), main="De $2,047.50 a $4,095.00", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "deepskyblue3",yaxp=c(0,50,5), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,10,20,30,40,50), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_2)), col="darkblue", lwd = 2)
+abline(h=(max(table(z_2)-min(table(z_2))))/2, col="gold4", lwd = 2)
+
+plot(table(z_3), xlim = c(1,5), ylim=c(0,25), main="$4,095.01 a 6,142.50", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "indianred4",yaxp=c(0,30,5), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,6,12,18,24,30), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_3)), col="darkblue", lwd = 2)
+abline(h=(max(table(z_3)-min(table(z_3))))/2, col="gold4", lwd = 2)
+
+plot(table(z_4), xlim = c(1,5), ylim=c(0,30), main="Más de $6,142.50", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "seagreen4",yaxp=c(0,30,5), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,6,12,18,24,30), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_4)), col="darkblue", lwd = 2)
+abline(h=(max(table(z_4)-min(table(z_4))))/2, col="gold4", lwd = 2)
+```
+
+## **Resultados**
+* **¿Las personas con menor nivel socioeconómico son las que más rechazan a los inmigrantes?**
+
+* 1. Deacuerdo
+* 2. De acuerdo en parte
+* 3. Ni de acuerdo ni en desacuerdo
+* 4. En desacuerdo en parte
+* 5. En desacuerdo
+
+## **Resultados**
+```{r, echo=FALSE, fig.align='center', out.width="55%"}
+par(mfrow = c(2,2))
+z_1 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$ing_ind=="2")]
+z_2 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$ing_ind=="3")]
+z_3 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$ing_ind=="4")]
+z_4 <- migracion_de_mexico_clean$p43_2[which(migracion_de_mexico_clean$ing_ind=="5")]
+
+plot(table(z_1), xlim = c(1,5), ylim=c(40,60), main="Menos de $2,047.49", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "blueviolet",yaxp=c(40,60,4), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(40,45,50,55,60), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_1)), col="darkblue", lwd = 2)
+
+plot(table(z_2), xlim = c(1,5), ylim=c(10,30), main="De $2,047.50 a $4,095.00", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "deepskyblue3",yaxp=c(10,30,4), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(10,15,20,25,30), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_2)), col="darkblue", lwd = 2)
+
+plot(table(z_3), xlim = c(1,5), ylim=c(0,20), main="$4,095.01 a 6,142.50", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "indianred4",yaxp=c(0,20,4), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(0,5,10,15,20), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_3)), col="darkblue", lwd = 2)
+
+plot(table(z_4), xlim = c(1,5), ylim=c(0,20), main="Más de $6,142.50", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 2, col = "seagreen4",yaxp=c(0,20,4), type="o", lty=1, cex=1.5, pch=20)
+abline(h=c(0,5,10,15,20), v = 1:5, lty = "dotted", col = "gray53")
+abline(h=mean(table(z_4)), col="darkblue", lwd = 2)
+```
+
+
+## **Referencias**
+
+* Tapia Pérez, José (2013). La inseguridad pública: causas y consecuencias. El Cotidiano,  (180),103-112.[fecha de Consulta 20 de Mayo de 2021]. ISSN: 0186-1840. Disponible en:   https://www.redalyc.org/articulo.oa?id=32528338007
+* Datos Abiertos de México - datos.gob.mx. (2021). Retrieved 10 May 2021, from https://datos.gob.mx/busca/dataset?tags=víctimas
+* Biblioteca Los mexicanos vistos por sí mismos. Los grandes temas nacionales / Encuesta Nacional de Migración. (2021). Retrieved 10 May 2021, from http://www.losmexicanos.unam.mx/migracion/encuesta_nacional.html
+
+## **Referencias**
+
+* Morales Mena, A., & Caicedo, M. (2015, 25 agosto). Encuesta Nacional de Migración. Biblioteca Los Mexicanos vistos por sí mismos Los grandes temas nacionales. http://www.losmexicanos.unam.mx/migracion/encuesta_nacional.html
+https://datos.gob.mx/busca/dataset/migracion-mundial
+https://www.kaggle.com/zikazika/analysis-of-world-crime?select=Enrolment_in_Grade_1_of_primary_education1.csv
+* Muñoz Rincón, D. (2021). ¿Cómo se dice:. Retrieved 17 May 2021, from https://www.upb.edu.co/es/central-blogs/ortografia/como-se-dice-migrante-emigrante-inmigrante
+* Violencia. (2021). Retrieved 17 May 2021, from https://www.who.int/topics/violence/es/

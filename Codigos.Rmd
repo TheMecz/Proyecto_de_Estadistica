@@ -1,0 +1,23 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, p41aa_1}
+par(mfrow = c(2,2))
+z_1 <- migracion_de_mexico_clean$p41aa_1[which(migracion_de_mexico_clean$Region=="1")]
+z_2 <- migracion_de_mexico_clean$p41aa_1[which(migracion_de_mexico_clean$Region=="2")]
+z_3 <- migracion_de_mexico_clean$p41aa_1[which(migracion_de_mexico_clean$Region=="3")]
+z_4 <- migracion_de_mexico_clean$p41aa_1[which(migracion_de_mexico_clean$Region=="4")]
+plot(table(z_1), xlim = c(1,8), ylim=c(0,80), main="Centro", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,80,4), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,20,40,60,80), v = 1:8, lty = "dotted", col = "gray53")
+
+plot(table(z_2), xlim = c(1,8), ylim=c(0,60), main="D.F. y Estado de México", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,60,3), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,20,40,60), v = 1:8, lty = "dotted", col = "gray53")
+
+plot(table(z_3), xlim = c(1,8), ylim=c(0,80), main="Norte", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,80,4), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,20,40,60,80), v = 1:8, lty = "dotted", col = "gray53")
+
+plot(table(z_4), xlim = c(1,8), ylim=c(0,40), main="Sur", xlab = "Etiquetas", ylab = "Frecuencia", lwd = 3, col = "blueviolet",yaxp=c(0,40,4), type="b", lty=3, cex=1, pch=20)
+abline(h=c(0,10,20,30,40), v = 1:8, lty = "dotted", col = "gray53")
+```
