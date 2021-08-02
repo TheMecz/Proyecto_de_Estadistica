@@ -24,6 +24,8 @@ migracion_de_mexico <- read_csv("Base_de_datos/Encuesta_Nacional_de_Migracion.cs
 revisiones_migratorias <-read_csv("Base_de_datos/revisiones-migratorias.csv")
 Percepcion_Seguridad_Publica_Datos <- read_delim("Base_de_datos/Percepcion Seguridad Publica - Datos.csv",
     ";", escape_double = FALSE, trim_ws = TRUE)
+victimas_delito <- read.csv("Base_de_datos/personas-atendidas-victimas-delito.csv")
+visitas_verificacion_migratoria <- read.csv("Base_de_datos/visitas-verificacion-migratoria.csv")
 ```
 
 ## **Introducción**
@@ -177,6 +179,14 @@ Nueva_tabla_2
 Percepcion_Seguridad_publica_clean <- na.omit(Percepcion_Seguridad_Publica_Datos)
 Percepcion_Seguridad_publica_clean
 ```
+
+```{r}
+victimas_delito
+```
+```{r}
+visitas_verificacion_migratoria
+```
+
 
 ## **Respondiendo las preguntas planteadas**
 
@@ -599,6 +609,20 @@ hist(c(x_1,x_2,x_3), main="Pregunta P67_5", xlab = "Etiquetas", ylab = "Frecuenc
 - $1$: Debería
 - $2$: Depende
 - $3$: No debería
+
+
+```{r}
+tabla <- table(migracion_de_mexico_clean$p54)
+tabla
+p54 <- data.frame(US = tabla[which(tabla == 438)],China = tabla[which(tabla == 22)])
+p54
+revisiones_migratorias_clean <- na.omit(revisiones_migratorias)
+I_2015 <- data.frame(I_2015 = revisiones_migratorias_clean$`2015-01` + revisiones_migratorias_clean$`2015-02` + revisiones_migratorias_clean$`2015-03`)
+II_2015 <- data.frame(II_2015 = revisiones_migratorias_clean$`2015-04` + revisiones_migratorias_clean$`2015-05` + revisiones_migratorias_clean$`2015-06`)
+III_2015 <- data.frame(III_2015 = revisiones_migratorias_clean$`2015-07` + revisiones_migratorias_clean$`2015-08` + revisiones_migratorias_clean$`2015-09`)
+IV_2015 <- data.frame(IV_2015 = revisiones_migratorias_clean$`2015-10` + revisiones_migratorias_clean$`2015-11` + revisiones_migratorias_clean$`2015-12`)
+
+```
 
 
 ## **Obtención de Muestra**
